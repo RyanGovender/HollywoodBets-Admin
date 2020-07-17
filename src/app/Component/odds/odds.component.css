@@ -1,0 +1,3 @@
+.table-info tbody+tbody, .table-info td, .table-info th, .table-info thead th {
+    border-color :#643e94!important;
+}

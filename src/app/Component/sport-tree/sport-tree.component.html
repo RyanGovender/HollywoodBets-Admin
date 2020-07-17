@@ -1,0 +1,142 @@
+<app-sportcountry></app-sportcountry>
+
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div *ngIf="warningAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong>Failed !</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+
+   <button type="button" class="btn btn-outline-success mb-1" data-toggle="modal" data-target="#exampleModal">
+    <i class="fa fa-plus"></i>
+    Add Sport
+</button>
+
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">ID</th>
+<th scope="col">Sport Name</th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor='let sport of sportTree'>
+<th scope="row"> {{sport.sportId}}</th>
+<td>{{sport.sportName}} </td>
+
+<td>
+  
+
+</td>
+<td>
+  <button class="btn btn-outline-danger" (click)="DeleteSport(sport.sportId);" ><i class="fa fa-trash"></i> Delete</button> &nbsp;&nbsp;&nbsp;&nbsp;
+  <button class="btn btn-outline-primary"  (click)="UpdateSport(sport)" data-toggle="modal" data-target="#editModal" ><i class="fa fa-pencil"></i> Edit</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Add Sport</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+ <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+ <div *ngIf="showConfirmAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong>Success!</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div *ngIf="showfailedAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong>Failed !</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+ <form>
+   <p>
+     {{message}}
+   </p>
+     <div class="form-group">
+       <label for="countryName">Sport Name</label>
+       <input #countryname type="text" class="form-control" id="countryName"  required aria-describedby="emailHelp">
+     </div>
+     <div class="form-group">
+       <label for="icon"> Icon URL</label>
+       <input #icon type="url" class="form-control" id="icon" aria-required="true" required>
+     </div>
+   </form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-primary" (click)="AddToSport(countryname.value,icon.value)">Save changes</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Update Sport</h5>
+<button type="button" (click)="close();" class="close" data-dismiss="modal" aria-label="Close">
+ <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+ <div *ngIf="showConfirmAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong>Success!</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div *ngIf="showfailedAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong>Failed !</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+ <form>
+  <p>
+    {{message}}
+  </p>
+     <div class="form-group">
+         <label for="countryName">Sport ID</label>
+         <input class="form-control" type="text" placeholder="{{selectSport.sportId}}" readonly>
+       </div>
+     <div class="form-group">
+       <label for="countryName">Sport Name</label>
+       <input #countryname2 type="text" class="form-control" id="countryName" value="{{selectSport.sportName}}"  required aria-describedby="emailHelp">
+     </div>
+     <div class="form-group">
+       <label for="icon">Sport Icon URL</label>
+       <input #icon2 type="text" class="form-control" value="{{selectSport.logoUrl}}" id="icon">
+     </div>
+   </form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" (click)="close();" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-primary" (click)="UpdateSportInformation(countryname2.value,icon2.value);">Save changes</button>
+</div>
+</div>
+</div>
+</div>

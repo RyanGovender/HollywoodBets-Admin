@@ -1,0 +1,140 @@
+<app-tournament-bettype [betTypeInput]=countries></app-tournament-bettype>
+
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div *ngIf="warningAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong>Failed !</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <button type="button" class="btn btn-outline-success mb-1" data-toggle="modal" data-target="#exampleModal">
+    <i class="fa fa-plus"></i>
+    Add Bet Type
+</button>
+
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">ID</th>
+<th scope="col">Bet Type Name</th>
+<th scope="col"></th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor='let market of countries'>
+<th scope="row"> {{market.betTypeId}}</th>
+<td>{{market.betTypeName}} </td>
+<td>
+
+</td>
+<td>
+  <button class="btn btn-outline-danger" (click)="DeleteBetType(market.betTypeId);" ><i class="fa fa-trash"></i> Delete</button>
+  &nbsp;&nbsp;
+  <button class="btn btn-outline-primary" data-toggle="modal" (click)="UpdateBetType(market)" data-target="#editModal" ><i class="fa fa-pencil"></i> Edit</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- <div *ngFor='let country of countries'>
+<p>
+{{country.countryId}} {{country.countryName}} 
+<a  class="btn btn-primary" (click)="UpdateCountries(country)" role="button" data-toggle="modal" data-target="#editModal" >
+ Edit
+</a>
+<a  class="btn btn-danger" (click)="DeleteCountry(country.countryId);" role="button">
+ Delete
+</a>
+</p>
+</div> -->
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Add Bet Type</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+ <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+ <div *ngIf="showConfirmAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong>Success!</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div *ngIf="showfailedAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong>Failed !</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+ <form>
+   {{message}}
+     <div class="form-group">
+       <label for="countryName">Bet Type Name</label>
+       <input #countryname type="text" class="form-control" id="countryName"  required aria-describedby="emailHelp">
+     </div>
+   </form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-primary" (click)="AddBetType(countryname.value)">Save changes</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Update Bet Type</h5>
+<button type="button" (click)="close();" class="close" data-dismiss="modal" aria-label="Close">
+ <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+ <div *ngIf="showConfirmAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong>Success!</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div *ngIf="showfailedAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong>Failed !</strong> {{messageAlert}}
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+ <form>
+  {{message}}
+     <div class="form-group">
+         <label for="countryName">Bet Type ID</label>
+         <input class="form-control" type="text" placeholder="{{selectedBetType.betTypeId}}" readonly>
+       </div>
+     <div class="form-group">
+       <label for="countryName">Bet Type Name</label>
+       <input #countryname2 type="text" class="form-control" id="countryName" value="{{selectedBetType.betTypeName}}"  required aria-describedby="emailHelp">
+     </div>
+   </form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" (click)="close();" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-primary" (click)="UpdateBetTypeInformation(countryname2.value);">Save changes</button>
+</div>
+</div>
+</div>
+</div>
